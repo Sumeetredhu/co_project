@@ -69,3 +69,5 @@ def i_type(data):
         exit()
     imm = Binary_convertor(data[3], 12)
     return [imm, reg_add(data[2]), funct3, reg_add(data[1]), opcode]
+
+#kmjninijk
