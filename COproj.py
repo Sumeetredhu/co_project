@@ -19,6 +19,7 @@ def Binary_convertor(a,b):
 
 # print(Binary_convertor(-30,32))
 def reg_add(register):
+    #Converts a register name (e.g., 'zero', 'ra', etc.) into its 5-bit binary code.
     if(register=='zero'):
         return(Binary_convertor(0,5))
     if(register=='ra'):
@@ -149,9 +150,6 @@ def r_type(data,i):
         ans.append(reg_add(data[2]))  #rs1
         ans.append(reg_add(data[3]))  #rs2
         ans.append('0000000')  #funct7
-    # while(len(ans)!=0):
-    #     print(ans.pop()," ",end="")
-    # print("\n")
     return ans
     #[31:25] [24:20] [19:15] [14:12] [11:7] [6:0]
     #funct7 rs2 rs1 funct3 rd opcode
@@ -196,7 +194,7 @@ def i_type(data,i):
     return ans
     #[31:20] [19:15] [14:12] [11:7] [6:0]
     #imm[11 : 0] rs1 funct3 rd opcode
-def s_type(data,i):  ############################ERROR#########CORRECTED_IG###################
+def s_type(data,i):
     ans=[]
     if (data[0]=='sw'):
         ans.append('0100011')  #opcode
@@ -215,13 +213,12 @@ def s_type(data,i):  ############################ERROR#########CORRECTED_IG#####
     #imm[11 : 5] rs2 rs1 funct3 imm[4 : 0] opcode S-type
     #[31:25] [24:20] [19:15] [14:12] [11:7] [6:0]
 def b_type(data, i):
-    # Check for virtual halt condition (unchanged)
+    #Check for virtual halt condition 
     if data[0] == 'beq' and data[1] == 'zero' and data[2] == 'zero' and data[3] == '0':
         global check
         check = 1
     ans = []
     if data[0] == 'beq':
-        # Instead of .isalpha(), try converting to int:
         try:
             immediate_val = int(data[3])
         except ValueError:
@@ -380,17 +377,14 @@ def Switch_case(case_value,data,i):
         'jalr':i_type,
         #################
         'sw':s_type,
-        ################
         'beq':b_type,
         'bne':b_type,
         'blt':b_type,
         'bge':b_type,
         'bltu':b_type,
         'bgeu':b_type,
-        ##############
         'lui':u_type,
         'auipc':u_type,
-        ##############
         'jal':j_type,
     }
     global output_name
