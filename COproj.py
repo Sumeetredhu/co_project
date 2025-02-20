@@ -451,5 +451,3 @@ with open(file_name,"+r") as input_file:
             Switch_case(data[0],data,i)
     if(check == 0):
         print("No Virtual Halt")
-
-        
